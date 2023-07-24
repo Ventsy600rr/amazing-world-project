@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "amazing-world-521db": {
+      "hosting": {
+        "amazing-world": [
+          "amazing-world-521db"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "amazing-world-521db"
+  }
+}
