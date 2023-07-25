@@ -117,3 +117,9 @@ label[for="terms"] > input {
   border-radius: 10px;
   padding: 5px;
 }
+
+p.error {
+  text-align: left;
+  color: #d61414;
+  margin-top: 2%;
+}

@@ -9,6 +9,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { CoreModule } from './core/core.module';
 import { FeatureModule } from './feature/feature.module';
+import { UrlValidatorDirective } from './shared/validators/url-validator/url-validator.directive';
 
 @NgModule({
   declarations: [AppComponent],

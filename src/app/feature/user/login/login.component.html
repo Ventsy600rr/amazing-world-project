@@ -1,5 +1,5 @@
 <section id="login-page" class="auth">
-  <form id="login">
+  <form id="login" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
     <div class="container">
       <div class="brand-logo"></div>
       <h1>Login</h1>
@@ -9,13 +9,51 @@
         id="email"
         name="email"
         placeholder="Sokka@gmail.com"
+        ngModel
+        #inputEmail="ngModel"
+        required
+        email
       />
+      <ng-container *ngIf="inputEmail.touched">
+        <p class="error" *ngIf="inputEmail.errors?.['required']">
+          Email is required!
+        </p>
+        <p class="error" *ngIf="inputEmail.errors?.['email']">
+          Email is invalid!
+        </p>
+      </ng-container>
 
       <label for="login-pass">Password:</label>
-      <input type="password" id="login-password" name="password" />
-      <input type="submit" class="btn submit" value="Login" />
+      <input
+        type="password"
+        id="login-password"
+        name="password"
+        ngModel
+        #inputPassword="ngModel"
+        required
+        minlength="5"
+      />
+
+      <ng-container *ngIf="inputPassword.touched">
+        <p class="error" *ngIf="inputPassword.errors?.['required']">
+          Password is required!
+        </p>
+        <p class="error" *ngIf="inputPassword.errors?.['minlength']">
+          Password must be at least 5 characters!
+        </p>
+      </ng-container>
+
+      <input
+        type="submit"
+        class="btn submit"
+        value="Login"
+        [disabled]="loginForm.invalid"
+      />
       <p class="field">
-        <span>If you don't have profile click <a routerLink="/register">here</a></span>
+        <span
+          >If you don't have profile click
+          <a routerLink="/register">here</a></span
+        >
       </p>
     </div>
   </form>

@@ -1,5 +1,9 @@
 <section id="register-page" class="content auth">
-  <form id="register">
+  <form
+    id="register"
+    #registerForm="ngForm"
+    (ngSubmit)="register(registerForm)"
+  >
     <div class="container">
       <div class="brand-logo"></div>
       <h1>Register</h1>
@@ -10,18 +14,68 @@
         id="email"
         name="email"
         placeholder="maria@email.com"
+        ngModel
+        #inputEmail="ngModel"
+        email
+        required
       />
 
+      <ng-container *ngIf="inputEmail.touched">
+        <p class="error" *ngIf="inputEmail.errors?.['required']">
+          Email is required!
+        </p>
+        <p class="error" *ngIf="inputEmail.errors?.['email']">
+          Email is invalid!
+        </p>
+      </ng-container>
+
       <label for="pass">Password:</label>
-      <input type="password" name="password" id="register-password" />
+      <input
+        type="password"
+        name="password"
+        id="register-password"
+        ngModel
+        #inputPassword="ngModel"
+        required
+        minlength="5"
+      />
+
+      <ng-container *ngIf="inputPassword.touched">
+        <p class="error" *ngIf="inputPassword.errors?.['required']">
+          Password is required!
+        </p>
+        <p class="error" *ngIf="inputPassword.errors?.['minlength']">
+          Password must be at least 5 characters!
+        </p>
+      </ng-container>
 
       <label for="con-pass">Confirm Password:</label>
-      <input type="password" name="confirm-password" id="confirm-password" />
+      <input
+        type="password"
+        name="confirm-password"
+        id="confirm-password"
+        ngModel
+        #inputConfPass="ngModel"
+      />
 
-      <input class="btn submit" type="submit" value="Register" />
+      <ng-container *ngIf="inputConfPass.touched">
+        <p class="error" *ngIf="inputPassword !== inputConfPass">
+          Password and confirm password does not match!
+        </p>
+      </ng-container>
+
+      <input
+        class="btn submit"
+        type="submit"
+        value="Register"
+        [disabled]="registerForm.invalid"
+      />
 
       <p class="field">
-        <span>If you already have profile click <a routerLink="/login">here</a></span>
+        <span
+          >If you already have profile click
+          <a routerLink="/login">here</a></span
+        >
       </p>
     </div>
   </form>

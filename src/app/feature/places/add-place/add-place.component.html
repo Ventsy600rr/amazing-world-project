@@ -1,31 +1,60 @@
 <section id="create-page" class="auth">
-  <form id="create">
+  <form id="create" #addForm="ngForm" (ngSubmit)="addLocation(addForm)">
     <div class="container">
-      <h1>Create Game</h1>
-      <label for="leg-title">Legendary title:</label>
+      <h1>Add your location</h1>
+      <label for="leg-title">Common title:</label>
       <input
         type="text"
         id="title"
         name="title"
-        placeholder="Enter game title..."
+        placeholder="Enter common name..."
+        ngModel
+        #inputTitle="ngModel"
+        required
+        maxlength="20"
       />
 
-      <label for="category">Category:</label>
+      <ng-container *ngIf="inputTitle.touched">
+        <p class="error" *ngIf="inputTitle.errors?.['required']">
+          Common title is required!
+        </p>
+      </ng-container>
+
+      <label for="name">Name:</label>
       <input
         type="text"
-        id="category"
-        name="category"
-        placeholder="Enter game category..."
+        id="name"
+        name="name"
+        placeholder="Enter name..."
+        ngModel
+        #inputName="ngModel"
+        required
+        maxlength="20"
       />
 
-      <label for="levels">MaxLevel:</label>
+      <ng-container *ngIf="inputName.touched">
+        <p class="error" *ngIf="inputName.errors?.['required']">
+          Name is required!
+        </p>
+      </ng-container>
+
+      <label for="location">Location:</label>
       <input
-        type="number"
-        id="maxLevel"
-        name="maxLevel"
-        min="1"
-        placeholder="1"
+        type="text"
+        id="location"
+        name="location"
+        placeholder="Enter location..."
+        ngModel
+        #inputLocation="ngModel"
+        required
+        maxlength="20"
       />
+
+      <ng-container *ngIf="inputLocation.touched">
+        <p class="error" *ngIf="inputLocation.errors?.['required']">
+          Location is required!
+        </p>
+      </ng-container>
 
       <label for="game-img">Image:</label>
       <input
@@ -33,11 +62,42 @@
         id="imageUrl"
         name="imageUrl"
         placeholder="Upload a photo..."
+        ngModel
+        #inputImageUrl="ngModel"
+        [appUrlValidator]="urlValidator"
+        required
       />
 
-      <label for="summary">Summary:</label>
-      <textarea name="summary" id="summary"></textarea>
-      <input class="btn submit" type="submit" value="Create Game" />
+      <ng-container *ngIf="inputImageUrl.touched">
+        <p class="error" *ngIf="inputImageUrl.errors?.['required']">
+          Image URL is required!
+        </p>
+        <p class="error" *ngIf="inputImageUrl.errors?.['appUrlValidator']">
+          Image URL is invalid!
+        </p>
+      </ng-container>
+
+      <label for="description">Description:</label>
+      <textarea
+        name="description"
+        id="description"
+        ngModel
+        #inputDescription="ngModel"
+        required
+        maxlength="100"
+      ></textarea>
+
+      <ng-container *ngIf="inputDescription.touched">
+        <p class="error" *ngIf="inputDescription.errors?.['required']">
+          Location is required!
+        </p>
+      </ng-container>
+      <input
+        class="btn submit"
+        type="submit"
+        value="Add location"
+        [disabled]="addForm.invalid"
+      />
     </div>
   </form>
 </section>
