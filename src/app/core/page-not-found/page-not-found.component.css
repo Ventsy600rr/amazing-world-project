@@ -1,7 +1,7 @@
 .not-found-page-container h1 {
   font-size: 200px;
   text-align: center;
-  margin-top: 8%;
+  
 }
 
 .not-found-page-container h2 {
@@ -11,14 +11,15 @@
 }
 
 #not-found-page {
-  margin-top: 8%;
+  margin-top: 3%;
   position: auto;
   width: 650px;
-  height: auto;
+  height: 550px;
   border-radius: 20px;
   padding: 40px;
   border: 2px solid #78edf1;
   box-sizing: border-box;
   background: #3e4443;
   box-shadow: 0px 0px 32px 0px #49535e, -14px -14px 20px #191c21;
+  color: white;
 }

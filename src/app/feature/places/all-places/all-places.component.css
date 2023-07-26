@@ -103,19 +103,20 @@ body::-webkit-scrollbar {
 }
 
 .no-offer {
-  border-top: 4px solid #2e87cb;
-  border-bottom: 4px solid #2e87cb;
+  border-top: 4px solid #78edf1;
+  border-bottom: 4px solid #78edf1;
   border-radius: 5px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
-  background-color: #096bab;
+  background-color: #3e4443;
   width: 50%;
   height: 100px;
   margin: auto;
   margin-top: 5%;
 }
 
-.no-offer p {
+.no-offer  p {
   font-size: 30px;
   text-align: center;
   padding-top: 30px;
+  color: white;
 }

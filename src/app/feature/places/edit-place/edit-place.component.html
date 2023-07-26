@@ -1,22 +1,99 @@
-<section id="edit-page" class="auth">
-  <form id="edit">
+<section id="edit-page" class="auth" *ngIf="place">
+  <form id="edit" #editForm="ngForm" (ngSubmit)="editLocation(editForm)">
     <div class="container">
-      <h1>Edit Game</h1>
-      <label for="leg-title">Legendary title:</label>
-      <input type="text" id="title" name="title" value="" />
+      <h1>Edit your location</h1>
+      <label for="leg-title">Common title:</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        ngModel="{{place.title}}"
+        #inputTitle="ngModel"
+        required
+        maxlength="22"
+      />
 
-      <label for="category">Category:</label>
-      <input type="text" id="category" name="category" value="" />
+      <ng-container *ngIf="inputTitle.touched">
+        <p class="error" *ngIf="inputTitle.errors?.['required']">
+          Common title is required!
+        </p>
+      </ng-container>
 
-      <label for="levels">MaxLevel:</label>
-      <input type="number" id="maxLevel" name="maxLevel" min="1" value="" />
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        ngModel = {{place.name}}
+        #inputName="ngModel"
+        required
+        maxlength="20"
+      />
+
+      <ng-container *ngIf="inputName.touched">
+        <p class="error" *ngIf="inputName.errors?.['required']">
+          Name is required!
+        </p>
+      </ng-container>
+
+      <label for="location">Location:</label>
+      <input
+        type="text"
+        id="location"
+        name="location"
+        ngModel="{{place.location}}"
+        #inputLocation="ngModel"
+        required
+        maxlength="20"
+      />
+
+      <ng-container *ngIf="inputLocation.touched">
+        <p class="error" *ngIf="inputLocation.errors?.['required']">
+          Location is required!
+        </p>
+      </ng-container>
 
       <label for="game-img">Image:</label>
-      <input type="text" id="imageUrl" name="imageUrl" value="" />
+      <input
+        type="text"
+        id="imageUrl"
+        name="imageUrl"
+        ngModel="{{place.imageUrl}}"
+        #inputImageUrl="ngModel"
+        [appUrlValidator]="urlValidator"
+        required
+      />
 
-      <label for="summary">Summary:</label>
-      <textarea name="summary" id="summary"></textarea>
-      <input class="btn submit" type="submit" value="Edit Game" />
+      <ng-container *ngIf="inputImageUrl.touched">
+        <p class="error" *ngIf="inputImageUrl.errors?.['required']">
+          Image URL is required!
+        </p>
+        <p class="error" *ngIf="inputImageUrl.errors?.['appUrlValidator']">
+          Image URL is invalid!
+        </p>
+      </ng-container>
+
+      <label for="description">Description:</label>
+      <textarea
+        name="description"
+        id="description"
+        ngModel="{{place.description}}"
+        #inputDescription="ngModel"
+        required
+        maxlength="200"
+      ></textarea>
+
+      <ng-container *ngIf="inputDescription.touched">
+        <p class="error" *ngIf="inputDescription.errors?.['required']">
+          Location is required!
+        </p>
+      </ng-container>
+      <input
+        class="btn submit"
+        type="submit"
+        value="Edit location"
+        [disabled]="editForm.invalid"
+      />
     </div>
   </form>
 </section>

@@ -1,51 +1,22 @@
-<section id="game-details">
-  <h1>Game Details</h1>
-  <div class="info-section">
-    <div class="game-header">
-      <img class="game-img" src="images/MineCraft.png" />
-      <h1>Bright</h1>
-      <span class="levels">MaxLevel: 4</span>
-      <p class="type">Action, Crime, Fantasy</p>
-    </div>
+<section id="detailsPage">
+  <div class="wrapper">
+      <div class="albumCover">
+          <img src="{{place.imageUrl}}">
+      </div>
+      <div class="albumInfo">
+          <div class="albumText">
 
-    <p class="text">
-      Set in a world where fantasy creatures live side by side with humans. A
-      human cop is forced to work with an Orc to find a weapon everyone is
-      prepared to kill for. Set in a world where fantasy creatures live side by
-      side with humans. A human cop is forced to work with an Orc to find a
-      weapon everyone is prepared to kill for.
-    </p>
+              <h1>{{place.title}}</h1>
+              <h4>Name: {{place.name}}</h4>
+              <h4>Location: {{place.location}}</h4>
+              <p>Description: {{place.description}}</p>
+          </div>
 
-    <!-- Bonus ( for Guests and Users ) -->
-    <div class="details-comments">
-      <h2>Comments:</h2>
-      <ul>
-        <!-- list all comments for current game (If any) -->
-        <li class="comment">
-          <p>Content: I rate this one quite highly.</p>
-        </li>
-        <li class="comment">
-          <p>Content: The best game.</p>
-        </li>
-      </ul>
-      <!-- Display paragraph: If there are no games in the database -->
-      <p class="no-comment">No comments.</p>
-    </div>
-
-    <!-- Edit/Delete buttons ( Only for creator of this game )  -->
-    <div class="buttons">
-      <a href="#" class="button">Edit</a>
-      <a href="#" class="button">Delete</a>
-    </div>
+          <!-- Only for registered user and creator of the album-->
+          <div class="actionBtn">
+              <a routerLink="/{{place.id}}/edit" class="edit">Edit</a>
+              <a (click)="deleteLocation()" class="remove">Delete</a>
+          </div>
+      </div>
   </div>
-
-  <!-- Bonus -->
-  <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) -->
-  <article class="create-comment">
-    <label>Add new comment:</label>
-    <form class="form">
-      <textarea name="comment" placeholder="Comment......"></textarea>
-      <input class="btn submit" type="submit" value="Add Comment" />
-    </form>
-  </article>
 </section>
