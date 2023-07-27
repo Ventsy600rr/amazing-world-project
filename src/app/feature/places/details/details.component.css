@@ -25,7 +25,7 @@
   margin-bottom: 200px;
 }
 
-.albumCover {
+.placeCover {
   float: left;
   height: 100%;
   width: auto;
@@ -33,24 +33,24 @@
   margin-left: 0.1%;
 }
 
-.albumCover img {
+.placeCover img {
   border-radius: 20px 0 0 20px;
   height: 100%;
   width: 600px;
 }
 
-.albumText {
+.placeText {
   padding-left: 10px;
   padding-top: 20px;
 }
 
-.albumText h1 {
+.placeText h1 {
   color: gainsboro;
   font-weight: bolder;
   font-size: 28px;
 }
 
-.albumText h3 {
+.placeText h3 {
   margin: 8px 0 47px 18px;
   font-size: 18px;
   color: gray;
@@ -58,20 +58,20 @@
   margin-bottom: 0;
 }
 
-.albumText h4 {
+.placeText h4 {
   margin: 8px 0 10px 18px;
   font-size: 16px;
   color: #9f9991;
   letter-spacing: 0.2em;
 }
 
-.albumText h5 {
+.placeText h5 {
   margin: 8px 0 10px 14px;
   font-size: 16px;
   color: white;
 }
 
-.albumText > p {
+.placeText > p {
   height: auto;
   width: 100%;
   color: #9f9991;

@@ -1,22 +1,21 @@
 <section id="detailsPage">
   <div class="wrapper">
-      <div class="albumCover">
-          <img src="{{place.imageUrl}}">
+    <div class="placeCover">
+      <img src="{{ place.imageUrl }}" />
+    </div>
+    <div class="placeInfo">
+      <div class="placeText">
+        <h1>{{ place.title }}</h1>
+        <h4>Name: {{ place.name }}</h4>
+        <h4>Location: {{ place.location }}</h4>
+        <p>Description: {{ place.description }}</p>
       </div>
-      <div class="albumInfo">
-          <div class="albumText">
 
-              <h1>{{place.title}}</h1>
-              <h4>Name: {{place.name}}</h4>
-              <h4>Location: {{place.location}}</h4>
-              <p>Description: {{place.description}}</p>
-          </div>
-
-          <!-- Only for registered user and creator of the album-->
-          <div class="actionBtn">
-              <a routerLink="/{{place.id}}/edit" class="edit">Edit</a>
-              <a (click)="deleteLocation()" class="remove">Delete</a>
-          </div>
+      <!-- Only for registered user and creator of the album-->
+      <div class="actionBtn" *ngIf="isLogged">
+        <a routerLink="/{{ place.id }}/edit" class="edit">Edit</a>
+        <a (click)="deleteLocation()" class="remove">Delete</a>
       </div>
+    </div>
   </div>
 </section>

@@ -19,13 +19,13 @@ body::-webkit-scrollbar {
   padding-top: 30px;
 }
 
-.game-market h1 {
+.places h1 {
   text-align: center;
   font-size: 40px;
   margin-bottom: 10px;
 }
 
-.offer-list {
+.place-list {
   width: auto;
   height: 580px;
   margin-top: 30px;
@@ -35,7 +35,7 @@ body::-webkit-scrollbar {
   overflow-x: auto;
 }
 
-.game-market .game {
+.places .place {
   display: inline-block;
   width: 500px;
   height: 300px;
@@ -48,7 +48,7 @@ body::-webkit-scrollbar {
   background-color: #3e4443;
 }
 
-.game-market .game-img img {
+.places .place-img img {
   float: left;
   border: 2px solid rgba(133, 104, 50, 0.781);
   border-radius: 50%;
@@ -57,28 +57,28 @@ body::-webkit-scrollbar {
   margin: 20px;
 }
 
-.game-market .game-info {
+.places .place-info {
   margin: 30px;
 }
 
-.game-market .game-info h1 {
+.places .place-info h1 {
   font-size: 18px;
   margin-top: 30px;
   color: white;
 }
 
-.game-market .game-info p {
+.places .place-info p {
   color: #050912;
   font-weight: bolder;
   margin-top: 10px;
 }
 
-.game-market .game-info span {
+.places .place-info span {
   color: white;
   font-weight: bolder;
 }
 
-.game-market .game .btn-details {
+.places .place .btn-details {
   border: 5em;
   cursor: pointer;
   outline: none;
@@ -98,11 +98,11 @@ body::-webkit-scrollbar {
   text-decoration: none;
 }
 
-.game-market .game .btn-details:hover {
+.places .place .btn-details:hover {
   box-shadow: 0 12px 24px rgba(128, 128, 128, 0.1);
 }
 
-.no-offer {
+.no-place {
   border-top: 4px solid #78edf1;
   border-bottom: 4px solid #78edf1;
   border-radius: 5px;
@@ -114,7 +114,7 @@ body::-webkit-scrollbar {
   margin-top: 5%;
 }
 
-.no-offer  p {
+.no-place  p {
   font-size: 30px;
   text-align: center;
   padding-top: 30px;

@@ -1,5 +1,5 @@
 <section id="login-page" class="auth">
-  <form id="login" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+  <form id="login" #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
     <div class="container">
       <div class="brand-logo"></div>
       <h1>Login</h1>
@@ -31,7 +31,7 @@
         ngModel
         #inputPassword="ngModel"
         required
-        minlength="5"
+        minlength="6"
       />
 
       <ng-container *ngIf="inputPassword.touched">
@@ -39,7 +39,7 @@
           Password is required!
         </p>
         <p class="error" *ngIf="inputPassword.errors?.['minlength']">
-          Password must be at least 5 characters!
+          Password must be at least 6 characters!
         </p>
       </ng-container>
 

@@ -14,10 +14,14 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    // path: '**',
-    path:'page-not-found',
+    path: 'page-not-found',
     component: PageNotFoundComponent,
   },
+  {
+    path: '**',
+    redirectTo: '/page-not-found',
+  },
+  
 ];
 
 @NgModule({

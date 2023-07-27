@@ -1,0 +1,67 @@
+.globe-loader {
+  position: relative;
+  font-size: 15rem;
+  color: rgb(36, 180, 96);
+  margin: 4rem;
+
+  > i {
+    display: block;
+    position: absolute;
+    font-size: 0.2em;
+    height: 50%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    transform-origin: center bottom;
+    animation: loader-spin 3s infinite ease-in-out;
+
+    &::before {
+      position: relative;
+      top: -1.25em;
+    }
+  }
+}
+
+@keyframes loader-spin {
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  to {
+    transform: translateX(-50%) rotate(1turn);
+  }
+}
+
+/* html {
+  font-size: big;
+}
+
+body {
+  background: lighten(rgb(47, 144, 255), 23%);
+  font-family: Helvetica, Arial, sans-serif;
+  text-align: center;
+  padding: 15px;
+} */
+
+hr {
+  border: 2px dashed rgba(red, 0.5);
+}
+
+h1 {
+  color: gold;
+  margin: 0 0 10px;
+  font-size: 2em;
+}
+
+a {
+  color: #333;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.demo-wrapper {
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: center;
+}
+

@@ -7,6 +7,8 @@ import { EditPlaceComponent } from './edit-place/edit-place.component';
 import { DetailsComponent } from './details/details.component';
 import { FormsModule } from '@angular/forms';
 import { UrlValidatorDirective } from 'src/app/shared/validators/url-validator/url-validator.directive';
+import { LoaderComponent } from '../../shared/loader/loader/loader.component';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { UrlValidatorDirective } from 'src/app/shared/validators/url-validator/u
     EditPlaceComponent,
     DetailsComponent,
     UrlValidatorDirective,
+    LoaderComponent
   ],
   imports: [CommonModule, PlacesRoutingModule, FormsModule],
+  exports: [PlacesRoutingModule],
 })
 export class PlacesModule {}

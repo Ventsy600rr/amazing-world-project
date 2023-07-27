@@ -4,12 +4,12 @@
   <nav>
     <a routerLink="/catalog">Amazing places</a>
     <!-- Logged-in users -->
-    <div id="user">
+    <div id="user" *ngIf="isLogged">
       <a routerLink="/create">Share your place</a>
-      <a routerLink="/Logout">Logout</a>
+      <a (click)="onLogout()">Logout</a>
     </div>
     <!-- Guest users -->
-    <div id="guest">
+    <div id="guest" *ngIf="!isLogged">
       <a routerLink="/login">Login</a>
       <a routerLink="/register">Register</a>
     </div>

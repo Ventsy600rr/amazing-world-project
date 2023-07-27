@@ -1,20 +1,24 @@
-<section class="game-market">
+<section class="places">
   <h1 id="title">Amazing Places</h1>
-  <div class="offer-list">
-    <div class="game" *ngFor="let place of places">
-      <div class="game-img">
+
+  <ng-container *ngIf="!isLoading">
+    <app-loader />
+  </ng-container>
+  <div class="place-list" *ngIf="!isLoading">
+    <div class="place" *ngFor="let place of places">
+      <div class="place-img">
         <img src="{{ place.imageUrl }}" alt="s" />
       </div>
-      <div class="game-info">
+      <div class="place-info">
         <h1>{{ place.title }}</h1>
         <p><span>Name: </span>{{ place.name }}</p>
         <p><span>Location: </span>{{ place.location }}</p>
       </div>
 
-      <a routerLink="/{{place.id}}/details" class="btn-details">Details</a>
+      <a routerLink="/{{ place.id }}/details" class="btn-details">Details</a>
     </div>
   </div>
-  <div class="no-offer" *ngIf="!places">
+  <div class="no-place" *ngIf="!places">
     <p>There are no places addet yet!</p>
   </div>
 </section>

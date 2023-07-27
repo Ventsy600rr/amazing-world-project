@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
+import { User } from 'src/app/types/user.type';
 
 @Component({
   selector: 'app-login',
@@ -7,14 +10,23 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  constructor(private userService: UserService, private router: Router) {}
 
-
-
-  login(form: NgForm): void {
+  onLogin(form: NgForm): void {
     if (form.invalid) {
       return;
     }
-    console.log(form.value)
-
+    const { email, password } = form.value;
+    
+    this.userService
+      .login(email, password)
+      .then((userData) => {
+        const user = userData.user as User;
+        this.userService.setUser(user);
+        this.router.navigate(['catalog']);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }
 }

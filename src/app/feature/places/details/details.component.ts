@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Place } from 'src/app/types/place.type';
+import { UserService } from '../../user/user.service';
 
 @Component({
   selector: 'app-details',
@@ -11,10 +12,21 @@ import { Place } from 'src/app/types/place.type';
 export class DetailsComponent implements OnInit {
   constructor(
     private serviceData: DataService,
+    private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
+
+  get isLogged(): boolean {
+    return this.userService.isLogged;
+  }
+
+  // get isOwner(): boolean {
+  //   return this.place.id == this.userService.user?.uid;
+  // }
+
   place!: Place;
+
   ngOnInit(): void {
     const placeId: string = this.activatedRoute.snapshot.params['placeId'];
     this.serviceData
@@ -23,7 +35,6 @@ export class DetailsComponent implements OnInit {
         if (place.exists()) {
           this.place = place.data() as Place;
           this.place.id = placeId;
-          console.log(place.data());
         } else {
           this.router.navigate(['page-not-found']);
         }
@@ -35,7 +46,10 @@ export class DetailsComponent implements OnInit {
   }
 
   deleteLocation() {
-    if (window.confirm(`Are you sure you want to delete ${this.place.title}`)) {
+    if (
+      this.isLogged &&
+      window.confirm(`Are you sure you want to delete ${this.place.title}`)
+    ) {
       this.serviceData
         .deletePlace(this.place.id)
         .then(() => {

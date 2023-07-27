@@ -11,11 +11,12 @@ import { Router } from '@angular/router';
 export class AllPlacesComponent implements OnInit {
   constructor(private serviceData: DataService, private router: Router) {}
   places: Place[] = [];
-
+  isLoading: boolean = true;
   ngOnInit(): void {
     this.serviceData.getPlaces().subscribe({
       next: (places) => {
         this.places = places as Place[];
+        this.isLoading = false;
       },
       error: (err) => {
         this.router.navigate(['page-not-found']);

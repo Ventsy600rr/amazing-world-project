@@ -2,7 +2,7 @@
   <form
     id="register"
     #registerForm="ngForm"
-    (ngSubmit)="register(registerForm)"
+    (ngSubmit)="onRegister(registerForm)"
   >
     <div class="container">
       <div class="brand-logo"></div>
@@ -37,7 +37,7 @@
         ngModel
         #inputPassword="ngModel"
         required
-        minlength="5"
+        minlength="6"
       />
 
       <ng-container *ngIf="inputPassword.touched">
@@ -45,7 +45,7 @@
           Password is required!
         </p>
         <p class="error" *ngIf="inputPassword.errors?.['minlength']">
-          Password must be at least 5 characters!
+          Password must be at least 6 characters!
         </p>
       </ng-container>
 
@@ -58,11 +58,11 @@
         #inputConfPass="ngModel"
       />
 
-      <ng-container *ngIf="inputConfPass.touched">
+      <!-- <ng-container *ngIf="inputConfPass.touched">
         <p class="error" *ngIf="inputPassword !== inputConfPass">
           Password and confirm password does not match!
         </p>
-      </ng-container>
+      </ng-container> -->
 
       <input
         class="btn submit"
