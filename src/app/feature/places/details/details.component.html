@@ -3,16 +3,35 @@
     <div class="placeCover">
       <img src="{{ place.imageUrl }}" />
     </div>
+
     <div class="placeInfo">
+      <div class="edit-delete-btns" *ngIf="!isOwner && isLogged">
+        <div class="likes">
+          <input
+            type="checkbox"
+            id="heart"
+            class="heart"
+            (click)="onLike()"
+            [checked]="isLiked"
+          />
+          <label class="heart" for="heart">&#9825; </label>
+          <!-- <p *ngIf="isLiked"> Liked!</p> -->
+        </div>
+        <div class="visit">
+          <input type="checkbox" id="check" class="check" />
+          <label class="check" for="check">&#10004;</label>
+        </div>
+      </div>
       <div class="placeText">
         <h1>{{ place.title }}</h1>
         <h4>Name: {{ place.name }}</h4>
         <h4>Location: {{ place.location }}</h4>
         <p>Description: {{ place.description }}</p>
+        <p>Likes: {{ place.likes.length }}</p>
       </div>
 
       <!-- Only for registered user and creator of the album-->
-      <div class="actionBtn" *ngIf="isLogged">
+      <div class="actionBtn" *ngIf="isOwner">
         <a routerLink="/{{ place.id }}/edit" class="edit">Edit</a>
         <a (click)="deleteLocation()" class="remove">Delete</a>
       </div>

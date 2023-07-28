@@ -18,7 +18,7 @@ export class HeaderComponent {
     this.userService
       .logout()
       .then(() => {
-        this.userService.setUser(null);
+        this.userService.setUser(undefined);
         console.log('User logout');
         this.router.navigate(['home']);
       })

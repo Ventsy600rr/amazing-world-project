@@ -15,6 +15,7 @@ const routes: Routes = [
   {
     path: 'create',
     component: AddPlaceComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: ':placeId/details',
@@ -24,7 +25,7 @@ const routes: Routes = [
     path: ':placeId/edit',
     component: EditPlaceComponent,
     canActivate: [AuthGuard],
-    data: {AuthGuardPipe: redirectUnauthorizedToLogin}
+    data: { AuthGuardPipe: redirectUnauthorizedToLogin },
   },
 ];
 

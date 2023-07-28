@@ -10,6 +10,9 @@ import { UserService } from '../../user/user.service';
   styleUrls: ['./details.component.css'],
 })
 export class DetailsComponent implements OnInit {
+  
+  place!: Place;
+
   constructor(
     private serviceData: DataService,
     private userService: UserService,
@@ -21,11 +24,30 @@ export class DetailsComponent implements OnInit {
     return this.userService.isLogged;
   }
 
-  // get isOwner(): boolean {
-  //   return this.place.id == this.userService.user?.uid;
-  // }
+  get isOwner(): boolean {
+    return this.place.creator.uid == this.userService.user?.uid;
+  }
 
-  place!: Place;
+  get isLiked(): boolean {
+    const userId = this.userService.user?.uid;
+    if (userId) {
+      return this.place.likes.includes(userId);
+    }
+    return false;
+  }
+
+  onLike() {
+    const placeId: string = this.activatedRoute.snapshot.params['placeId'];
+    const userId = this.userService.user?.uid;
+    console.log('click',userId)
+    if (userId) {
+      if (this.isLiked) {
+        this.serviceData.remuveLike(placeId, userId);
+      } else {
+        this.serviceData.addLike(placeId, userId);
+      }
+    }
+  }
 
   ngOnInit(): void {
     const placeId: string = this.activatedRoute.snapshot.params['placeId'];
@@ -51,7 +73,7 @@ export class DetailsComponent implements OnInit {
       window.confirm(`Are you sure you want to delete ${this.place.title}`)
     ) {
       this.serviceData
-        .deletePlace(this.place.id)
+        .deletePlace(this.place.id!)
         .then(() => {
           this.router.navigate(['catalog']);
           console.log('Place deleted');

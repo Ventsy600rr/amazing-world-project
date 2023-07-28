@@ -3,6 +3,9 @@ import { NgForm, ValidatorFn } from '@angular/forms';
 import { appUrlValidator } from 'src/app/shared/validators/url-validator/app-url-validator';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
+import { UserService } from '../../user/user.service';
+import { Place } from 'src/app/types/place.type';
+import { User } from 'src/app/types/user.type';
 
 @Component({
   selector: 'app-add-place',
@@ -10,14 +13,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-place.component.css'],
 })
 export class AddPlaceComponent {
-  constructor(private serviceData: DataService, private router: Router) {}
+  constructor(
+    private serviceData: DataService,
+    private userService: UserService,
+    private router: Router
+  ) {}
   urlValidator = appUrlValidator;
   addLocation(form: NgForm): void {
     if (form.invalid) {
       return;
     }
+
+    const { title, name, location, imageUrl, description } = form.value;
+    const creator = {
+      email: this.userService.user?.email,
+      uid: this.userService.user?.uid,
+    };
+    
+    const newPlace = {
+      title,
+      name,
+      location,
+      imageUrl,
+      description,
+      likes:[],
+      creator,
+    };
+
     this.serviceData
-      .addPlace(form.value)
+      .addPlace(newPlace)
       .then(() => {
         this.router.navigate(['catalog']);
         console.log('Succses!');

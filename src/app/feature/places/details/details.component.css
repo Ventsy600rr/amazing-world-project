@@ -82,7 +82,6 @@
 }
 
 .actionBtn {
-
   display: flex;
   text-align: center;
   left: auto;
@@ -120,4 +119,57 @@
 
 .actionBtn > a:hover {
   box-shadow: 0 12px 24px rgba(128, 128, 128, 0.1);
+}
+
+/* hides the checkbox */
+input[class="heart"] {
+  display: none;
+  cursor: pointer;
+}
+
+/* changes the color when selected */
+input[class="heart"]:checked ~ label[for="heart"] {
+  color: red;
+  cursor: pointer;
+}
+
+/* for styling purpose only */
+label[for="heart"] {
+  font-size: 3em;
+  cursor: pointer;
+}
+
+/* chech */
+/* hides the checkbox */
+input[class="check"] {
+  display: none;
+  cursor: pointer;
+}
+
+/* changes the color when selected */
+input[class="check"]:checked ~ label[for="check"] {
+  color: green;
+  cursor: pointer;
+}
+
+/* for styling purpose only */
+label[for="check"] {
+  font-size: 3em;
+  cursor: pointer;
+}
+
+.edit-delete-btns {
+  margin-top: 2%;
+}
+
+.likes {
+  display: inline;
+}
+.likes p{
+  display: inline;
+  font-size: 40px;
+}
+
+.visit {
+  display: inline;
 }

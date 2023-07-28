@@ -1,10 +1,7 @@
 <section class="places">
   <h1 id="title">Amazing Places</h1>
 
-  <ng-container *ngIf="!isLoading">
-    <app-loader />
-  </ng-container>
-  <div class="place-list" *ngIf="!isLoading">
+  <div class="place-list" *ngIf="places.length != 0">
     <div class="place" *ngFor="let place of places">
       <div class="place-img">
         <img src="{{ place.imageUrl }}" alt="s" />
@@ -18,7 +15,7 @@
       <a routerLink="/{{ place.id }}/details" class="btn-details">Details</a>
     </div>
   </div>
-  <div class="no-place" *ngIf="!places">
+  <div class="no-place" *ngIf="places.length == 0">
     <p>There are no places addet yet!</p>
   </div>
 </section>

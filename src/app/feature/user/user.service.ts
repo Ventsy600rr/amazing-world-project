@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { onAuthStateChanged } from '@angular/fire/auth';
 import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
   signOut,
+ 
 } from 'firebase/auth';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { User } from 'src/app/types/user.type';
@@ -13,29 +13,20 @@ import { User } from 'src/app/types/user.type';
   providedIn: 'root',
 })
 export class UserService implements OnDestroy {
-  private user$$ = new BehaviorSubject<User | null>(null);
+  private user$$ = new BehaviorSubject<User | undefined>(undefined);
   user$ = this.user$$.asObservable();
-  user!: User | null;
+
+  user!: User | undefined;
   subscription: Subscription;
+
+
   constructor() {
     this.subscription = this.user$.subscribe((user) => {
       this.user = user;
     });
   }
 
-  // isLog() {
-  //   const auth = getAuth();
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       this.user = user as User;
-  //       console.log('User LOG')
-  //     } else {
-  //       console.log('User LOGOUT')
-  //     }
-  //   });
-  // }
-
-  setUser(user: User | null) {
+  setUser(user: User | undefined) {
     this.user$$.next(user);
     console.log(user);
   }

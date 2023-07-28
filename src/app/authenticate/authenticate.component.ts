@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../feature/user/user.service';
+import { User } from '../types/user.type';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 @Component({
   selector: 'app-authenticate',
@@ -11,16 +13,19 @@ export class AuthenticateComponent implements OnInit {
 
   constructor(private userService: UserService) {}
   ngOnInit(): void {
-    // this.userService.user$.subscribe({
-    //   next: () => {
-    //     this.isAuthenticating = false;
-    //   },
-    //   error: () => {
-    //     this.isAuthenticating = false;
-    //   },
-    //   complete: () => {
-    //     this.isAuthenticating = false;
-    //   },
-    // });
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        let logUser = user as User;
+        this.userService.setUser(logUser);
+        console.log('User LOG');
+        this.isAuthenticating = false;
+      } else {
+        this.userService.setUser(undefined);
+        this.isAuthenticating = false;
+        console.log('User LOGOUT');
+      }
+    });
   }
 }

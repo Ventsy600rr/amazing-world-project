@@ -9,6 +9,8 @@ import {
   getDoc,
   updateDoc,
   deleteDoc,
+  arrayUnion,
+  arrayRemove,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Place } from 'src/app/types/place.type';
@@ -19,9 +21,10 @@ import { Place } from 'src/app/types/place.type';
 export class DataService {
   constructor(private fsd: Firestore) {}
 
-  addPlace(f: any) {
+  addPlace(place: Place) {
+    console.log(place);
     const collectionRef = collection(this.fsd, 'places');
-    return addDoc(collectionRef, f);
+    return addDoc(collectionRef, place);
   }
 
   getPlaces(): Observable<DocumentData[]> {
@@ -36,9 +39,22 @@ export class DataService {
 
   editPlace(placeId: string, place: Place) {
     const documentRef = doc(this.fsd, 'places', placeId);
-    console.log(place);
     const editPlace = { ...place };
     return updateDoc(documentRef, editPlace);
+  }
+
+  addLike(placeId: string, userId: string) {
+    const documentRef = doc(this.fsd, 'places', placeId);
+    return updateDoc(documentRef, {
+      likes: arrayUnion(userId),
+    });
+  }
+
+  remuveLike(placeId: string, userId: string) {
+    const documentRef = doc(this.fsd, 'places', placeId);
+    return updateDoc(documentRef, {
+      likes: arrayRemove(userId),
+    });
   }
 
   deletePlace(placeId: string) {
