@@ -11,18 +11,27 @@ import {
   deleteDoc,
   arrayUnion,
   arrayRemove,
+  where,
+  query,
+  getDocs,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Place } from 'src/app/types/place.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
+  private place$$ = new BehaviorSubject<Place | undefined>(undefined);
+  place$ = this.place$$.asObservable();
+
   constructor(private fsd: Firestore) {}
 
+  setPlace(place: Place | undefined) {
+    this.place$$.next(place);
+  }
+
   addPlace(place: Place) {
-    console.log(place);
     const collectionRef = collection(this.fsd, 'places');
     return addDoc(collectionRef, place);
   }
@@ -30,6 +39,24 @@ export class DataService {
   getPlaces(): Observable<DocumentData[]> {
     const collectionRef = collection(this.fsd, 'places');
     return collectionData(collectionRef, { idField: 'id' });
+  }
+
+  getUserPlaces(userId: string) {
+    const collectionRef = collection(this.fsd, 'places');
+    const q = query(collectionRef, where('creator.uid', '==', userId));
+    return getDocs(q);
+  }
+
+  getUserVisited(userId: string) {
+    const collectionRef = collection(this.fsd, 'places');
+    const q = query(collectionRef, where('visited', 'array-contains', userId));
+    return getDocs(q);
+  }
+
+  getUserFavorites(userId: string) {
+    const collectionRef = collection(this.fsd, 'places');
+    const q = query(collectionRef, where('favorites', 'array-contains', userId));
+    return getDocs(q);
   }
 
   getPlace(placeId: string) {
@@ -54,6 +81,34 @@ export class DataService {
     const documentRef = doc(this.fsd, 'places', placeId);
     return updateDoc(documentRef, {
       likes: arrayRemove(userId),
+    });
+  }
+
+  addVisitor(placeId: string, userId: string) {
+    const documentRef = doc(this.fsd, 'places', placeId);
+    return updateDoc(documentRef, {
+      visited: arrayUnion(userId),
+    });
+  }
+
+  remuveVisitor(placeId: string, userId: string) {
+    const documentRef = doc(this.fsd, 'places', placeId);
+    return updateDoc(documentRef, {
+      visited: arrayRemove(userId),
+    });
+  }
+
+  addToFavorite(placeId: string, userId: string) {
+    const documentRef = doc(this.fsd, 'places', placeId);
+    return updateDoc(documentRef, {
+      favorites: arrayUnion(userId),
+    });
+  }
+
+  remuveFromFavorite(placeId: string, userId: string) {
+    const documentRef = doc(this.fsd, 'places', placeId);
+    return updateDoc(documentRef, {
+      favorites: arrayRemove(userId),
     });
   }
 

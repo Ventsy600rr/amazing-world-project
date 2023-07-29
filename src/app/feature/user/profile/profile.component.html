@@ -1,5 +1,24 @@
-<section class="places">
-  <h1 id="title">Amazing Places</h1>
+<section class="profile-page">
+  <div class="profile-card">
+    <div class="top-section">
+      <div class="pic">
+        <img src="/assets/3333.png" />
+      </div>
+      <div class="email">{{ user.email }}</div>
+    </div>
+
+    <div class="bottom-section">
+      <div class="social-media">
+        <i class="fa fa-map-pin" (click)="onMyPlaces()"></i>
+        <i class="fa fa-check" (click)="onMyVisited()"></i>
+        <i class="fa fa-star" (click)="onMyFavorites()"></i>
+      </div>
+      <h2 *ngIf="section">{{ section }}</h2>
+    </div>
+  </div>
+</section>
+<section class="places" *ngIf="section">
+  <!-- <h1 id="title">Amazing Places</h1> -->
 
   <div class="place-list" *ngIf="places.length != 0">
     <div class="place" *ngFor="let place of places">

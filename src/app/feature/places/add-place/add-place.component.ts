@@ -37,6 +37,8 @@ export class AddPlaceComponent {
       imageUrl,
       description,
       likes:[],
+      visited:[],
+      favorites:[],
       creator,
     };
 

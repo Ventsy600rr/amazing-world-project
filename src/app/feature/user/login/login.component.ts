@@ -17,7 +17,7 @@ export class LoginComponent {
       return;
     }
     const { email, password } = form.value;
-    
+
     this.userService
       .login(email, password)
       .then((userData) => {
@@ -26,6 +26,7 @@ export class LoginComponent {
         this.router.navigate(['catalog']);
       })
       .catch((err) => {
+        form.reset();
         console.log(err.message);
       });
   }

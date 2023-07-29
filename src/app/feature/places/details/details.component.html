@@ -14,12 +14,28 @@
             (click)="onLike()"
             [checked]="isLiked"
           />
-          <label class="heart" for="heart">&#9825; </label>
+          <label class="heart" for="heart">&#9825;</label>
           <!-- <p *ngIf="isLiked"> Liked!</p> -->
         </div>
         <div class="visit">
-          <input type="checkbox" id="check" class="check" />
+          <input
+            type="checkbox"
+            id="check"
+            class="check"
+            (click)="onVisit()"
+            [checked]="isVisited"
+          />
           <label class="check" for="check">&#10004;</label>
+        </div>
+        <div class="favorite">
+          <input
+            type="checkbox"
+            id="favorite"
+            class="favorite"
+            (click)="onFavorite()"
+            [checked]="isFavorite"
+          />
+          <label class="favorite" for="favorite">&#10025;</label>
         </div>
       </div>
       <div class="placeText">
@@ -27,7 +43,6 @@
         <h4>Name: {{ place.name }}</h4>
         <h4>Location: {{ place.location }}</h4>
         <p>Description: {{ place.description }}</p>
-        <p>Likes: {{ place.likes.length }}</p>
       </div>
 
       <!-- Only for registered user and creator of the album-->
@@ -35,6 +50,9 @@
         <a routerLink="/{{ place.id }}/edit" class="edit">Edit</a>
         <a (click)="deleteLocation()" class="remove">Delete</a>
       </div>
+    </div>
+    <div class="like">
+      <p>Likes: {{ place.likes.length }}</p>
     </div>
   </div>
 </section>

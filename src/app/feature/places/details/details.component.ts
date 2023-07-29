@@ -1,24 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Place } from 'src/app/types/place.type';
 import { UserService } from '../../user/user.service';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/types/user.type';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
 })
-export class DetailsComponent implements OnInit {
-  
+export class DetailsComponent implements OnInit, OnDestroy {
   place!: Place;
-
+  subscription: Subscription;
   constructor(
     private serviceData: DataService,
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.subscription = this.serviceData.place$.subscribe((place) => {
+      this.place = place as Place;
+    });
+  }
 
   get isLogged(): boolean {
     return this.userService.isLogged;
@@ -36,15 +41,97 @@ export class DetailsComponent implements OnInit {
     return false;
   }
 
+  get isVisited(): boolean {
+    const userId = this.userService.user?.uid;
+    if (userId) {
+      return this.place.visited.includes(userId);
+    }
+    return false;
+  }
+
+  get isFavorite(): boolean {
+    const userId = this.userService.user?.uid;
+    if (userId) {
+      return this.place.favorites.includes(userId);
+    }
+    return false;
+  }
+
   onLike() {
     const placeId: string = this.activatedRoute.snapshot.params['placeId'];
     const userId = this.userService.user?.uid;
-    console.log('click',userId)
+
     if (userId) {
       if (this.isLiked) {
-        this.serviceData.remuveLike(placeId, userId);
+        this.serviceData
+          .remuveLike(placeId, userId)
+          .then(() => {
+            this.serviceData.getPlace(placeId).then((place) => {
+              const updPlase = place.data() as Place;
+              this.serviceData.setPlace(updPlase);
+            });
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
       } else {
-        this.serviceData.addLike(placeId, userId);
+        this.serviceData
+          .addLike(placeId, userId)
+          .then(() => {
+            this.serviceData.getPlace(placeId).then((place) => {
+              const updPlase = place.data() as Place;
+              this.serviceData.setPlace(updPlase);
+            });
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }
+    }
+  }
+
+  onVisit() {
+    const placeId: string = this.activatedRoute.snapshot.params['placeId'];
+    const userId = this.userService.user?.uid;
+
+    if (userId) {
+      if (this.isVisited) {
+        this.serviceData
+          .remuveVisitor(placeId, userId)
+          .then(() => {})
+          .catch((err) => {
+            console.log(err.message);
+          });
+      } else {
+        this.serviceData
+          .addVisitor(placeId, userId)
+          .then(() => {})
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }
+    }
+  }
+
+  onFavorite() {
+    const placeId: string = this.activatedRoute.snapshot.params['placeId'];
+    const userId = this.userService.user?.uid;
+
+    if (userId) {
+      if (this.isFavorite) {
+        this.serviceData
+          .remuveFromFavorite(placeId, userId)
+          .then(() => {})
+          .catch((err) => {
+            console.log(err.message);
+          });
+      } else {
+        this.serviceData
+          .addToFavorite(placeId, userId)
+          .then(() => {})
+          .catch((err) => {
+            console.log(err.message);
+          });
       }
     }
   }
@@ -69,7 +156,7 @@ export class DetailsComponent implements OnInit {
 
   deleteLocation() {
     if (
-      this.isLogged &&
+      this.isOwner &&
       window.confirm(`Are you sure you want to delete ${this.place.title}`)
     ) {
       this.serviceData
@@ -83,5 +170,9 @@ export class DetailsComponent implements OnInit {
           this.router.navigate(['page-not-found']);
         });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

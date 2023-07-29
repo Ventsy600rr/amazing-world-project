@@ -72,6 +72,12 @@ body::-webkit-scrollbar {
   font-weight: bolder;
   margin-top: 10px;
 }
+.like p {
+  float:right;
+  color:white;
+  font-weight: bolder;
+  margin-top: 5%;
+}
 
 .places .place-info span {
   color: white;

@@ -19,12 +19,10 @@ export class AuthenticateComponent implements OnInit {
       if (user) {
         let logUser = user as User;
         this.userService.setUser(logUser);
-        console.log('User LOG');
         this.isAuthenticating = false;
       } else {
         this.userService.setUser(undefined);
         this.isAuthenticating = false;
-        console.log('User LOGOUT');
       }
     });
   }

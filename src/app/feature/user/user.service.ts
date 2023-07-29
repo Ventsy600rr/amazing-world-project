@@ -28,7 +28,6 @@ export class UserService implements OnDestroy {
 
   setUser(user: User | undefined) {
     this.user$$.next(user);
-    console.log(user);
   }
 
   get isLogged(): boolean {

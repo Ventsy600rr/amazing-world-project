@@ -8,5 +8,7 @@ export interface Place {
   description: string;
   id?: string;
   likes: string[];
+  visited: string[];
+  favorites: string[];
   creator: User;
 }

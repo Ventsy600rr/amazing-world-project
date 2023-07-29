@@ -24,6 +24,7 @@ export class RegisterComponent {
         this.router.navigate(['catalog']);
       })
       .catch((err) => {
+        form.reset();
         console.log(err.message);
       });
   }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 import { UserService } from 'src/app/feature/user/user.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class HeaderComponent {
   }
 
   onLogout() {
+
     this.userService
       .logout()
       .then(() => {

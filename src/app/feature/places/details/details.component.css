@@ -42,6 +42,21 @@
 .placeText {
   padding-left: 10px;
   padding-top: 20px;
+  margin-top: 2%;
+}
+.like {
+  float: right;
+  margin-top: 100px;
+}
+
+.like p {
+  height: auto;
+  width: 100%;
+  color: #9f9991;
+  line-height: 1.6em;
+  font-size: 26px;
+  margin-right: 90px;
+  
 }
 
 .placeText h1 {
@@ -82,12 +97,15 @@
 }
 
 .actionBtn {
+  margin-top: 3%;
   display: flex;
   text-align: center;
   left: auto;
   top: auto;
   right: 0;
   bottom: 0;
+  margin-left: 9%;
+  float: left;
 }
 
 .actionBtn > a {
@@ -110,7 +128,7 @@
   color: white;
   font-family: "Lato";
   font-size: 20px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   margin-top: 20px;
   padding: 10px;
   text-decoration: none;
@@ -125,6 +143,7 @@
 input[class="heart"] {
   display: none;
   cursor: pointer;
+  
 }
 
 /* changes the color when selected */
@@ -158,18 +177,45 @@ label[for="check"] {
   cursor: pointer;
 }
 
+/* fav */
+/* hides the checkbox */
+input[class="favorite"] {
+  display: none;
+  cursor: pointer;
+}
+
+/* changes the color when selected */
+input[class="favorite"]:checked ~ label[for="favorite"] {
+  color: rgb(238, 234, 20);
+  cursor: pointer;
+}
+
+/* for styling purpose only */
+label[for="favorite"] {
+  font-size: 3em;
+  cursor: pointer;
+}
+
+
 .edit-delete-btns {
   margin-top: 2%;
+  margin-left: auto;
+  padding: auto
+ 
 }
 
 .likes {
   display: inline;
 }
-.likes p{
+.likes p {
   display: inline;
   font-size: 40px;
 }
 
 .visit {
+  display: inline;
+}
+
+.favorite {
   display: inline;
 }
