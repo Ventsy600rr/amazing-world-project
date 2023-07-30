@@ -1,18 +1,30 @@
-<!-- Display div: with information about every game (if any) -->
-<div class="game" *ngFor="let place of places">
-  <div class="image-wrap">
-    <img src="{{place.imageUrl}}" />
-  </div>
-  <h3>{{place.title}}</h3>
-  <div class="rating">
-    
-  </div>
-  <div class="data-buttons">
-    <a href="#" class="btn details-btn">Details</a>
-  </div>
-</div>
+<ng-container *ngIf="isLoading">
+  <app-loader />
+</ng-container>
 
+<ng-container *ngIf="!isLoading">
+  <ng-container *ngIf="places.length != 0">
+    <h2>Top locations</h2>
+    <div class="place" *ngFor="let place of places">
+      <div class="image-wrap">
+        <img src="{{ place.imageUrl }}" />
+      </div>
+      <h3>{{ place.title }}</h3>
 
-<!-- Display paragraph: If there is no games  -->
-<!-- <p class="no-articles">No games yet</p> -->
-<!-- </div> -->
+      <div class="data-buttons">
+        <a routerLink="/{{ place.id }}/details" class="btn details-btn"
+          >Details</a
+        >
+      </div>
+      <div class="likes">
+        <p>Likes: {{ place.likes.length }}</p>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="places.length == 0">
+    <div class="no-place">
+      <p>There are no places addet yet!</p>
+    </div>
+  </ng-container>
+</ng-container>

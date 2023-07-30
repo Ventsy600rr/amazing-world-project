@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Place } from 'src/app/types/place.type';
-import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-all-places',
@@ -9,7 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./all-places.component.css'],
 })
 export class AllPlacesComponent implements OnInit {
-  constructor(private serviceData: DataService, private router: Router) {}
+  constructor(
+    private serviceData: DataService,
+    private popupService: NgToastService
+  ) {}
   places: Place[] = [];
   isLoading: boolean = true;
   ngOnInit(): void {
@@ -20,7 +23,11 @@ export class AllPlacesComponent implements OnInit {
       },
       error: (err) => {
         this.isLoading = false;
-        this.router.navigate(['page-not-found']);
+        this.popupService.error({
+          detail: `${err.message}`,
+          position: 'topCenter',
+          duration: 3000,
+        });
         console.log(err.message);
       },
     });

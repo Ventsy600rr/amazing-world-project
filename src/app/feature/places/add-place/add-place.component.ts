@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NgForm, ValidatorFn } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { appUrlValidator } from 'src/app/shared/validators/url-validator/app-url-validator';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../user/user.service';
 import { Place } from 'src/app/types/place.type';
 import { User } from 'src/app/types/user.type';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-add-place',
@@ -16,7 +17,8 @@ export class AddPlaceComponent {
   constructor(
     private serviceData: DataService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private popupService: NgToastService
   ) {}
   urlValidator = appUrlValidator;
   addLocation(form: NgForm): void {
@@ -25,20 +27,20 @@ export class AddPlaceComponent {
     }
 
     const { title, name, location, imageUrl, description } = form.value;
-    const creator = {
+    const creator: User = {
       email: this.userService.user?.email,
       uid: this.userService.user?.uid,
     };
-    
-    const newPlace = {
+
+    const newPlace: Place = {
       title,
       name,
       location,
       imageUrl,
       description,
-      likes:[],
-      visited:[],
-      favorites:[],
+      likes: [],
+      visited: [],
+      favorites: [],
       creator,
     };
 
@@ -49,8 +51,12 @@ export class AddPlaceComponent {
         console.log('Succses!');
       })
       .catch((err) => {
+        this.popupService.error({
+          detail: `${err.message}`,
+          position: 'topCenter',
+          duration: 3000,
+        });
         console.log(err.message);
-        this.router.navigate(['page-not-found']);
       });
   }
 }

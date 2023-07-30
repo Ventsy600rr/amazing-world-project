@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../data.service';
 import { Place } from 'src/app/types/place.type';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-top-three',
@@ -8,7 +9,10 @@ import { Place } from 'src/app/types/place.type';
   styleUrls: ['./top-three.component.css'],
 })
 export class TopThreeComponent {
-  constructor(private serviceData: DataService) {}
+  constructor(
+    private serviceData: DataService,
+    private popupService: NgToastService
+  ) {}
 
   places: Place[] = [];
   isLoading: boolean = true;
@@ -22,8 +26,16 @@ export class TopThreeComponent {
           currentPlace['id'] = place.id;
           this.places.push(currentPlace);
         });
-        console.log(this.places);
+        this.isLoading = false;
       })
-      .catch((err) => {});
+      .catch((err) => {
+        this.isLoading = false;
+        this.popupService.error({
+          detail: `${err.message}`,
+          position: 'topCenter',
+          duration: 3000,
+        });
+        console.log(err.message);
+      });
   }
 }

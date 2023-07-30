@@ -4,6 +4,7 @@ import { DataService } from '../data.service';
 import { Place } from 'src/app/types/place.type';
 import { appUrlValidator } from 'src/app/shared/validators/url-validator/app-url-validator';
 import { NgForm } from '@angular/forms';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-edit-place',
@@ -14,7 +15,8 @@ export class EditPlaceComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private serviceData: DataService,
-    private router: Router
+    private router: Router,
+    private popupService: NgToastService
   ) {}
   urlValidator = appUrlValidator;
   place!: Place;
@@ -33,8 +35,12 @@ export class EditPlaceComponent implements OnInit {
         }
       })
       .catch((err) => {
+        this.popupService.error({
+          detail: `${err.message}`,
+          position: 'topCenter',
+          duration: 3000,
+        });
         console.log(err.message);
-        this.router.navigate(['page-not-found']);
       });
   }
 
@@ -50,8 +56,12 @@ export class EditPlaceComponent implements OnInit {
         this.router.navigate([`${placeId}/details`]);
       })
       .catch((err) => {
+        this.popupService.error({
+          detail: `${err.message}`,
+          position: 'topCenter',
+          duration: 3000,
+        });
         console.log(err.message);
-        this.router.navigate(['page-not-found']);
       });
   }
 }
