@@ -12,6 +12,8 @@ import { FeatureModule } from './feature/feature.module';
 
 import * as firebase from 'firebase/app';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
+import { SharedModule } from './shared/shared.module';
+
 
 firebase.initializeApp(environment.firebase);
 
@@ -21,6 +23,7 @@ firebase.initializeApp(environment.firebase);
     FeatureModule,
     BrowserModule,
     CoreModule,
+    SharedModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

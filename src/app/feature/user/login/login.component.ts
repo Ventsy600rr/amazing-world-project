@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/types/user.type';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,11 @@ import { User } from 'src/app/types/user.type';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private popupService: NgToastService
+  ) {}
 
   onLogin(form: NgForm): void {
     if (form.invalid) {
@@ -26,6 +31,11 @@ export class LoginComponent {
         this.router.navigate(['catalog']);
       })
       .catch((err) => {
+        this.popupService.error({
+          detail: `${err.message}`,
+          position: 'topCenter',
+          duration: 3000,
+        });
         form.reset();
         console.log(err.message);
       });

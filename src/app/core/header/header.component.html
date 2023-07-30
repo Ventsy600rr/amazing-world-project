@@ -2,7 +2,7 @@
   <!-- Navigation -->
   <h1><a class="home" routerLink="/">Home</a></h1>
   <nav>
-    <a routerLink="/profile" *ngIf="isLogged">Welcome, </a>
+    <a routerLink="/profile" *ngIf="isLogged">Welcome, {{ user.email }}</a>
     <a routerLink="/catalog">Amazing places</a>
     <!-- Logged-in users -->
     <div id="user" *ngIf="isLogged">

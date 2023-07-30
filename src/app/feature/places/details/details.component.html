@@ -1,5 +1,8 @@
 <section id="detailsPage">
-  <div class="wrapper">
+  <ng-container *ngIf="isLoading">
+    <app-loader />
+  </ng-container>
+  <div class="wrapper" *ngIf="!isLoading">
     <div class="placeCover">
       <img src="{{ place.imageUrl }}" />
     </div>
@@ -56,3 +59,4 @@
     </div>
   </div>
 </section>
+ 

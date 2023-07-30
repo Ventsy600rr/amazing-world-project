@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
 import { UserService } from 'src/app/feature/user/user.service';
+import { User } from 'src/app/types/user.type';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +14,11 @@ export class HeaderComponent {
   get isLogged(): boolean {
     return this.userService.isLogged;
   }
+
+  get user(): User {
+    return this.userService.user as User;
+  }
+
 
   onLogout() {
 

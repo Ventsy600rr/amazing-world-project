@@ -1,24 +1,30 @@
 <section class="places">
-  <h1 id="title">Amazing Places</h1>
+  <h1 id="title">Our amazing places. How many have you visited?</h1>
+  
+<ng-container *ngIf="isLoading">
+  <app-loader/>
+</ng-container>
 
-  <div class="place-list" *ngIf="places.length != 0">
-    <div class="place" *ngFor="let place of places">
-      <div class="place-img">
-        <img src="{{ place.imageUrl }}" alt="s" />
-      </div>
-      <div class="place-info">
-        <h1>{{ place.title }}</h1>
-        <p><span>Name: </span>{{ place.name }}</p>
-        <p><span>Location: </span>{{ place.location }}</p>
-      </div>
+  <ng-container *ngIf="!isLoading">
+    <div class="place-list" *ngIf="places.length != 0">
+      <div class="place" *ngFor="let place of places">
+        <div class="place-img">
+          <img src="{{ place.imageUrl }}" alt="s" />
+        </div>
+        <div class="place-info">
+          <h1>{{ place.title }}</h1>
+          <p><span>Name: </span>{{ place.name }}</p>
+          <p><span>Location: </span>{{ place.location }}</p>
+        </div>
 
-      <a routerLink="/{{ place.id }}/details" class="btn-details">Details</a>
-      <div class="like">
-        <p>Likes: {{ place.likes.length }}</p>
+        <a routerLink="/{{ place.id }}/details" class="btn-details">Details</a>
+        <div class="like">
+          <p>Likes: {{ place.likes.length }}</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="no-place" *ngIf="places.length == 0">
-    <p>There are no places addet yet!</p>
-  </div>
+    <div class="no-place" *ngIf="places.length == 0">
+      <p>There are no places addet yet!</p>
+    </div>
+  </ng-container>
 </section>

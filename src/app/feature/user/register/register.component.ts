@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/types/user.type';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,11 @@ import { User } from 'src/app/types/user.type';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private popupService: NgToastService
+  ) {}
   onRegister(form: NgForm): void {
     if (form.invalid) {
       return;
@@ -24,6 +29,11 @@ export class RegisterComponent {
         this.router.navigate(['catalog']);
       })
       .catch((err) => {
+        this.popupService.error({
+          detail: `${err.message}`,
+          position: 'topCenter',
+          duration: 3000,
+        });
         form.reset();
         console.log(err.message);
       });

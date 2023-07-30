@@ -17,9 +17,12 @@
     </div>
   </div>
 </section>
-<section class="places" *ngIf="section">
-  <!-- <h1 id="title">Amazing Places</h1> -->
 
+<ng-container *ngIf="isLoading">
+  <app-loader />
+</ng-container>
+
+<section class="places" *ngIf="section">
   <div class="place-list" *ngIf="places.length != 0">
     <div class="place" *ngFor="let place of places">
       <div class="place-img">

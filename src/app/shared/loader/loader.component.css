@@ -1,8 +1,11 @@
 .globe-loader {
   position: relative;
   font-size: 15rem;
-  color: rgb(36, 180, 96);
+  color: #78edf1;
   margin: 4rem;
+  
+  text-align: center;
+   
 
   > i {
     display: block;

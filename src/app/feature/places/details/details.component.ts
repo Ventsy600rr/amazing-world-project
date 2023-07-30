@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Place } from 'src/app/types/place.type';
 import { UserService } from '../../user/user.service';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/types/user.type';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-details',
@@ -18,12 +18,15 @@ export class DetailsComponent implements OnInit, OnDestroy {
     private serviceData: DataService,
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private popupService: NgToastService
   ) {
     this.subscription = this.serviceData.place$.subscribe((place) => {
       this.place = place as Place;
     });
   }
+
+  isLoading: boolean = true;
 
   get isLogged(): boolean {
     return this.userService.isLogged;
@@ -69,9 +72,19 @@ export class DetailsComponent implements OnInit, OnDestroy {
             this.serviceData.getPlace(placeId).then((place) => {
               const updPlase = place.data() as Place;
               this.serviceData.setPlace(updPlase);
+              this.popupService.error({
+                detail: 'Location unliked!',
+                position: 'topCenter',
+                duration: 3000,
+              });
             });
           })
           .catch((err) => {
+            this.popupService.error({
+              detail: `${err.message}`,
+              position: 'topCenter',
+              duration: 3000,
+            });
             console.log(err.message);
           });
       } else {
@@ -81,9 +94,19 @@ export class DetailsComponent implements OnInit, OnDestroy {
             this.serviceData.getPlace(placeId).then((place) => {
               const updPlase = place.data() as Place;
               this.serviceData.setPlace(updPlase);
+              this.popupService.success({
+                detail: 'Location liked!',
+                position: 'topCenter',
+                duration: 3000,
+              });
             });
           })
           .catch((err) => {
+            this.popupService.error({
+              detail: `${err.message}`,
+              position: 'topCenter',
+              duration: 3000,
+            });
             console.log(err.message);
           });
       }
@@ -98,15 +121,45 @@ export class DetailsComponent implements OnInit, OnDestroy {
       if (this.isVisited) {
         this.serviceData
           .remuveVisitor(placeId, userId)
-          .then(() => {})
+          .then(() => {
+            this.serviceData.getPlace(placeId).then((place) => {
+              const updPlase = place.data() as Place;
+              this.serviceData.setPlace(updPlase);
+              this.popupService.error({
+                detail: 'Location removed from visited list!',
+                position: 'topCenter',
+                duration: 3000,
+              });
+            });
+          })
           .catch((err) => {
+            this.popupService.error({
+              detail: `${err.message}`,
+              position: 'topCenter',
+              duration: 3000,
+            });
             console.log(err.message);
           });
       } else {
         this.serviceData
           .addVisitor(placeId, userId)
-          .then(() => {})
+          .then(() => {
+            this.serviceData.getPlace(placeId).then((place) => {
+              const updPlase = place.data() as Place;
+              this.serviceData.setPlace(updPlase);
+              this.popupService.success({
+                detail: 'Location added to visited list!',
+                position: 'topCenter',
+                duration: 3000,
+              });
+            });
+          })
           .catch((err) => {
+            this.popupService.error({
+              detail: `${err.message}`,
+              position: 'topCenter',
+              duration: 3000,
+            });
             console.log(err.message);
           });
       }
@@ -121,15 +174,45 @@ export class DetailsComponent implements OnInit, OnDestroy {
       if (this.isFavorite) {
         this.serviceData
           .remuveFromFavorite(placeId, userId)
-          .then(() => {})
+          .then(() => {
+            this.serviceData.getPlace(placeId).then((place) => {
+              const updPlase = place.data() as Place;
+              this.serviceData.setPlace(updPlase);
+              this.popupService.error({
+                detail: 'Location removed from favorite list!',
+                position: 'topCenter',
+                duration: 3000,
+              });
+            });
+          })
           .catch((err) => {
+            this.popupService.error({
+              detail: `${err.message}`,
+              position: 'topCenter',
+              duration: 3000,
+            });
             console.log(err.message);
           });
       } else {
         this.serviceData
           .addToFavorite(placeId, userId)
-          .then(() => {})
+          .then(() => {
+            this.serviceData.getPlace(placeId).then((place) => {
+              const updPlase = place.data() as Place;
+              this.serviceData.setPlace(updPlase);
+              this.popupService.success({
+                detail: 'Location added to favorite list!',
+                position: 'topCenter',
+                duration: 3000,
+              });
+            });
+          })
           .catch((err) => {
+            this.popupService.error({
+              detail: `${err.message}`,
+              position: 'topCenter',
+              duration: 3000,
+            });
             console.log(err.message);
           });
       }
@@ -144,13 +227,21 @@ export class DetailsComponent implements OnInit, OnDestroy {
         if (place.exists()) {
           this.place = place.data() as Place;
           this.place.id = placeId;
+          this.serviceData.setPlace(this.place);
+          this.isLoading = false;
         } else {
+          this.isLoading = false;
           this.router.navigate(['page-not-found']);
         }
       })
       .catch((err) => {
+        this.isLoading = false;
+        this.popupService.error({
+          detail: `${err.message}`,
+          position: 'topCenter',
+          duration: 3000,
+        });
         console.log(err.message);
-        this.router.navigate(['page-not-found']);
       });
   }
 
@@ -166,8 +257,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
           console.log('Place deleted');
         })
         .catch((err) => {
+          this.popupService.error({
+            detail: `${err.message}`,
+            position: 'topCenter',
+            duration: 3000,
+          });
           console.log(err.message);
-          this.router.navigate(['page-not-found']);
         });
     }
   }

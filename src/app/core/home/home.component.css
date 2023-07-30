@@ -1,22 +1,24 @@
 #welcome-world {
     width: auto;
     padding-right: 15px;
-    padding-top: 7em;
+    padding-top: 3em;
     justify-content: right;
     padding-left: 15px;
     position: relative;
     box-sizing: border-box;
     text-align: center;
+    
   }
   
   #welcome-world .welcome-message {
-    display: inline-block;
+    display: inline;
     z-index: 999;
     margin: 0 auto;
     left: 0;
-    top: 40%;
+    top: 20%;
     text-align: center;
     width: 30%;
+    
   }
   
   #welcome-world > img {
@@ -29,7 +31,7 @@
   }
   
   .welcome-message h2 {
-    color: #ffffff;
+    color: #78edf1;
     font-size: 300%;
     font-size: 55px;
     line-height: 1;
@@ -37,14 +39,14 @@
     letter-spacing: normal;
     word-spacing: normal;
     text-transform: uppercase;
-    text-shadow: 0 2px 4.8px rgba(0, 0, 0, 0.3);
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
     font-family: "Agency FB";
   }
   
   .welcome-message h3 {
-    color: #ffffff;
+    color: #78edf1;
     font-size: 600%;
-    text-shadow: none;
+    text-shadow:#ec0000;
     line-height: 1;
     font-weight: 700;
     text-align: center;
@@ -52,7 +54,7 @@
     word-spacing: normal;
     text-transform: uppercase;
     font-weight: 700;
-    text-shadow: 0 2px 4.8px rgba(0, 0, 0, 0.3);
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
     font-family: "Agency FB";
   }
   

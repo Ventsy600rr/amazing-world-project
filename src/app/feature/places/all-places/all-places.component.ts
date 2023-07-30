@@ -19,6 +19,7 @@ export class AllPlacesComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
+        this.isLoading = false;
         this.router.navigate(['page-not-found']);
         console.log(err.message);
       },

@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
     private dataService: DataService
   ) {}
 
+  isLoading: boolean = false;
   ngOnInit(): void {}
 
   get user(): User {
@@ -24,6 +25,7 @@ export class ProfileComponent implements OnInit {
   places: Place[] = [];
   section: string = '';
   onMyPlaces() {
+    this.isLoading = true;
     const userId = this.user.uid as string;
     this.places = [];
     this.section = 'My Places';
@@ -35,14 +37,16 @@ export class ProfileComponent implements OnInit {
           currentPlace['id'] = place.id;
           this.places.push(currentPlace);
         });
-        console.log(this.places);
+        this.isLoading = false;
       })
       .catch((err) => {
+        this.isLoading = false;
         console.log(err);
       });
   }
 
   onMyVisited() {
+    this.isLoading = true;
     const userId = this.user.uid as string;
     this.places = [];
     this.section = 'Visited Places';
@@ -54,14 +58,16 @@ export class ProfileComponent implements OnInit {
           currentPlace['id'] = place.id;
           this.places.push(currentPlace);
         });
-        console.log(this.places);
+        this.isLoading = false;
       })
       .catch((err) => {
+        this.isLoading = false;
         console.log(err);
       });
   }
 
   onMyFavorites() {
+    this.isLoading = true;
     const userId = this.user.uid as string;
     this.places = [];
     this.section = 'Favorite Places';
@@ -73,9 +79,10 @@ export class ProfileComponent implements OnInit {
           currentPlace['id'] = place.id;
           this.places.push(currentPlace);
         });
-        console.log(this.places);
+        this.isLoading = false;
       })
       .catch((err) => {
+        this.isLoading = false;
         console.log(err);
       });
   }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import {
   Firestore,
   collection,
@@ -15,17 +15,24 @@ import {
   query,
   getDocs,
 } from '@angular/fire/firestore';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Place } from 'src/app/types/place.type';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
+export class DataService implements OnDestroy {
   private place$$ = new BehaviorSubject<Place | undefined>(undefined);
   place$ = this.place$$.asObservable();
 
-  constructor(private fsd: Firestore) {}
+  place!: Place | undefined;
+  subscription: Subscription;
+
+  constructor(private fsd: Firestore) {
+    this.subscription = this.place$.subscribe((place) => {
+      this.place = place;
+    });
+  }
 
   setPlace(place: Place | undefined) {
     this.place$$.next(place);
@@ -55,7 +62,10 @@ export class DataService {
 
   getUserFavorites(userId: string) {
     const collectionRef = collection(this.fsd, 'places');
-    const q = query(collectionRef, where('favorites', 'array-contains', userId));
+    const q = query(
+      collectionRef,
+      where('favorites', 'array-contains', userId)
+    );
     return getDocs(q);
   }
 
@@ -115,5 +125,9 @@ export class DataService {
   deletePlace(placeId: string) {
     const documentRef = doc(this.fsd, 'places', placeId);
     return deleteDoc(documentRef);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

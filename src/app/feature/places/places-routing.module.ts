@@ -4,9 +4,9 @@ import { AllPlacesComponent } from './all-places/all-places.component';
 import { AddPlaceComponent } from './add-place/add-place.component';
 import { DetailsComponent } from './details/details.component';
 import { EditPlaceComponent } from './edit-place/edit-place.component';
-import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { AuthenticationGuard } from 'src/app/shared/guards/authentication.guard';
+import { AuthorizationGuard } from 'src/app/shared/guards/authorization.guard';
 
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const routes: Routes = [
   {
     path: 'catalog',
@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'create',
     component: AddPlaceComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthenticationGuard],
   },
   {
     path: ':placeId/details',
@@ -24,8 +24,7 @@ const routes: Routes = [
   {
     path: ':placeId/edit',
     component: EditPlaceComponent,
-    canActivate: [AuthGuard],
-    data: { AuthGuardPipe: redirectUnauthorizedToLogin },
+    canActivate: [AuthorizationGuard],
   },
 ];
 
