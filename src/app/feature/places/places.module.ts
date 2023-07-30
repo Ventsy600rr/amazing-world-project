@@ -7,6 +7,7 @@ import { EditPlaceComponent } from './edit-place/edit-place.component';
 import { DetailsComponent } from './details/details.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { TopThreeComponent } from './top-three/top-three.component';
 
 @NgModule({
   declarations: [
@@ -14,8 +15,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AllPlacesComponent,
     EditPlaceComponent,
     DetailsComponent,
+    TopThreeComponent,
   ],
   imports: [CommonModule, PlacesRoutingModule, FormsModule, SharedModule],
-  exports: [PlacesRoutingModule],
+  exports: [PlacesRoutingModule,TopThreeComponent],
 })
 export class PlacesModule {}

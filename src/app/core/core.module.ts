@@ -7,6 +7,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NgToastModule } from 'ng-angular-popup';
+import { PlacesModule } from '../feature/places/places.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { NgToastModule } from 'ng-angular-popup';
     HomeComponent,
     PageNotFoundComponent,
   ],
-  imports: [CommonModule, AppRoutingModule, NgToastModule],
+  imports: [CommonModule, AppRoutingModule, NgToastModule, PlacesModule],
   exports: [
     HeaderComponent,
     FooterComponent,

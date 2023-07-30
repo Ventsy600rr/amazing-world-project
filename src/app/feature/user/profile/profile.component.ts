@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   isLoading: boolean = false;
+ 
   ngOnInit(): void {}
 
   get user(): User {

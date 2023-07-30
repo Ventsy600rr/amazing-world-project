@@ -10,7 +10,7 @@
         ngModel="{{place.title}}"
         #inputTitle="ngModel"
         required
-        maxlength="22"
+        maxlength="15"
       />
 
       <ng-container *ngIf="inputTitle.touched">
@@ -27,7 +27,7 @@
         ngModel = {{place.name}}
         #inputName="ngModel"
         required
-        maxlength="20"
+        maxlength="15"
       />
 
       <ng-container *ngIf="inputName.touched">
@@ -44,7 +44,7 @@
         ngModel="{{place.location}}"
         #inputLocation="ngModel"
         required
-        maxlength="20"
+        maxlength="15"
       />
 
       <ng-container *ngIf="inputLocation.touched">

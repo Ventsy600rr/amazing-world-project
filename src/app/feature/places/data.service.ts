@@ -14,6 +14,8 @@ import {
   where,
   query,
   getDocs,
+  orderBy,
+  limit,
 } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Place } from 'src/app/types/place.type';
@@ -41,6 +43,12 @@ export class DataService implements OnDestroy {
   addPlace(place: Place) {
     const collectionRef = collection(this.fsd, 'places');
     return addDoc(collectionRef, place);
+  }
+
+  getTopThree() {
+    const collectionRef = collection(this.fsd, 'places');
+    const q = query(collectionRef, orderBy('likes','desc'), limit(3));
+    return getDocs(q);
   }
 
   getPlaces(): Observable<DocumentData[]> {
