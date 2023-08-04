@@ -47,7 +47,7 @@ export class DataService implements OnDestroy {
 
   getTopThree() {
     const collectionRef = collection(this.fsd, 'places');
-    const q = query(collectionRef, orderBy('likes','desc'), limit(3));
+    const q = query(collectionRef, orderBy('likes', 'desc'), limit(3));
     return getDocs(q);
   }
 

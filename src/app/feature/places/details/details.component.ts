@@ -220,6 +220,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const s = this.userService.user
+    console.log(s)
     const placeId: string = this.activatedRoute.snapshot.params['placeId'];
     this.serviceData
       .getPlace(placeId)
@@ -253,7 +255,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       this.serviceData
         .deletePlace(this.place.id!)
         .then(() => {
-          this.router.navigate(['catalog']);
+          this.router.navigate(['/place/catalog']);
           console.log('Place deleted');
         })
         .catch((err) => {

@@ -2,17 +2,17 @@
   <!-- Navigation -->
   <h1><a class="home" routerLink="/">Home</a></h1>
   <nav>
-    <a routerLink="/profile" *ngIf="isLogged">Welcome, {{ user.email }}</a>
-    <a routerLink="/catalog">Amazing places</a>
+    <a routerLink="/user/profile" *ngIf="isLogged">Welcome, {{ user!.username }}</a>
+    <a routerLink="/place/catalog">Amazing places</a>
     <!-- Logged-in users -->
     <div id="user" *ngIf="isLogged">
-      <a routerLink="/create">Share your place</a>
+      <a routerLink="/place/create">Share your place</a>
       <a (click)="onLogout()">Logout</a>
     </div>
     <!-- Guest users -->
     <div id="guest" *ngIf="!isLogged">
-      <a routerLink="/login">Login</a>
-      <a routerLink="/register">Register</a>
+      <a routerLink="/user/login">Login</a>
+      <a routerLink="/user/register">Register</a>
     </div>
   </nav>
 </header>

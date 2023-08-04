@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../feature/user/user.service';
-import { User } from '../types/user.type';
+import { UserCredentials, UserData } from '../types/user.type';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 @Component({
@@ -17,9 +17,18 @@ export class AuthenticateComponent implements OnInit {
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        let logUser = user as User;
-        this.userService.setUser(logUser);
-        this.isAuthenticating = false;
+        this.userService
+          .getUser(user.uid)
+          .then((user) => {
+            const userObject = user.data();
+            const currentUser = userObject!['user'];
+            this.userService.setUser(currentUser);
+            this.isAuthenticating = false;
+          })
+          .catch(() => {
+            this.userService.setUser(undefined);
+            this.userService.logout();
+          });
       } else {
         this.userService.setUser(undefined);
         this.isAuthenticating = false;

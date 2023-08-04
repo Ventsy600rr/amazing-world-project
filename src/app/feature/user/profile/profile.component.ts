@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { User } from 'src/app/types/user.type';
+import { UserData } from 'src/app/types/user.type';
 import { DataService } from '../../places/data.service';
 import { Place } from 'src/app/types/place.type';
 
@@ -16,12 +16,13 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   isLoading: boolean = false;
- 
-  ngOnInit(): void {}
 
-  get user(): User {
-    return this.userService.user as User;
+  ngOnInit(): void {
+    this.user = this.userService.user!;
+    console.log(this.user);
   }
+
+  user!: UserData;
 
   places: Place[] = [];
   section: string = '';

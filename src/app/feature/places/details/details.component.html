@@ -50,13 +50,17 @@
 
       <!-- Only for registered user and creator of the album-->
       <div class="actionBtn" *ngIf="isOwner">
-        <a routerLink="/{{ place.id }}/edit" class="edit">Edit</a>
+        <a routerLink="/place/{{ place.id }}/edit" class="edit">Edit</a>
         <a (click)="deleteLocation()" class="remove">Delete</a>
       </div>
     </div>
     <div class="like">
+      <p *ngIf="!isOwner">
+        <a routerLink="/user/{{ place.creator.uid }}/creator"
+          >Creator: {{ place.creator.username }}</a
+        >
+      </p>
       <p>Likes: {{ place.likes.length }}</p>
     </div>
   </div>
 </section>
- 

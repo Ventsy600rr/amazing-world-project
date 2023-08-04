@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/types/user.type';
+import { UserData } from 'src/app/types/user.type';
 import { NgToastService } from 'ng-angular-popup';
 
 @Component({
@@ -20,13 +20,22 @@ export class RegisterComponent {
     if (form.invalid) {
       return;
     }
-    const { email, password } = form.value;
+    console.log(form.value);
+    const { email, username, bio, password } = form.value;
+
     this.userService
       .register(email, password)
       .then((userData) => {
-        const user = userData.user as User;
-        this.userService.setUser(user);
-        this.router.navigate(['catalog']);
+        const user: UserData = {
+          email: userData.user.email!,
+          uid: userData.user.uid,
+          username,
+          bio
+        };
+        return this.userService.addUser(user);
+      })
+      .then(() => {
+        this.router.navigate(['/place/catalog']);
       })
       .catch((err) => {
         this.popupService.error({

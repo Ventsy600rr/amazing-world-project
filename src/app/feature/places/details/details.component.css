@@ -55,7 +55,8 @@
   color: #9f9991;
   line-height: 1.6em;
   font-size: 26px;
-  margin-right: 90px;
+  /* margin-right: 90px; */
+  display: inline;
   
 }
 

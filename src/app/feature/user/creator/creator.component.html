@@ -1,21 +1,16 @@
-<section class="profile-page">
-  <div class="profile-card">
+<section class="creator-page">
+  <div class="creator-card">
     <div class="top-section">
       <div class="pic">
         <img src="/assets/3333.png" />
       </div>
-      <div class="name">{{ user.username }}</div>
-      <div class="email">{{ user.email }}</div>
-      <div class="email">{{ user.bio }}</div>
+      <div class="name">{{ creator.username }}</div>
+      <div class="email">{{ creator.email }}</div>
+      <div class="email">{{ creator.bio }}</div>
     </div>
 
     <div class="bottom-section">
-      <div class="social-media">
-        <i class="fa fa-map-pin" (click)="onMyPlaces()"></i>
-        <i class="fa fa-check" (click)="onMyVisited()"></i>
-        <i class="fa fa-star" (click)="onMyFavorites()"></i>
-      </div>
-      <h2 *ngIf="section">{{ section }}</h2>
+      <h2>My places</h2>
     </div>
   </div>
 </section>
@@ -24,7 +19,7 @@
   <app-loader />
 </ng-container>
 
-<section class="places" *ngIf="section">
+<section class="places" *ngIf="!isLoading">
   <div class="place-list" *ngIf="places.length != 0">
     <div class="place" *ngFor="let place of places">
       <div class="place-img">

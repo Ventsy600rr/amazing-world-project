@@ -14,6 +14,18 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: 'user',
+    loadChildren: () =>
+      import('./feature/user/user.module').then((module) => module.UserModule),
+  },
+  {
+    path: 'place',
+    loadChildren: () =>
+      import('./feature/places/places.module').then(
+        (module) => module.PlacesModule
+      ),
+  },
+  {
     path: 'page-not-found',
     component: PageNotFoundComponent,
   },
@@ -21,7 +33,6 @@ const routes: Routes = [
     path: '**',
     redirectTo: '/page-not-found',
   },
-  
 ];
 
 @NgModule({

@@ -53,7 +53,7 @@ export class EditPlaceComponent implements OnInit {
       .editPlace(placeId, form.value)
       .then(() => {
         console.log('Place edited');
-        this.router.navigate([`${placeId}/details`]);
+        this.router.navigate([`/place/${placeId}/details`]);
       })
       .catch((err) => {
         this.popupService.error({

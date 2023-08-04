@@ -8,7 +8,6 @@ import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { CoreModule } from './core/core.module';
-import { FeatureModule } from './feature/feature.module';
 
 import * as firebase from 'firebase/app';
 import { AuthenticateComponent } from './authenticate/authenticate.component';
@@ -20,7 +19,7 @@ firebase.initializeApp(environment.firebase);
 @NgModule({
   declarations: [AppComponent, AuthenticateComponent],
   imports: [
-    FeatureModule,
+    
     BrowserModule,
     CoreModule,
     SharedModule,

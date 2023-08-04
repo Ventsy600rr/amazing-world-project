@@ -20,6 +20,23 @@
         required
       />
 
+      <label for="username">Username:</label>
+      <input
+        type="nickname"
+        id="username"
+        name="username"
+        ngModel
+        #inputUsername="ngModel"
+        maxlength="10"
+        required
+      />
+
+      <ng-container *ngIf="inputUsername.touched">
+        <p class="error" *ngIf="inputUsername.errors?.['required']">
+          Username is required!
+        </p>
+      </ng-container>
+
       <ng-container *ngIf="inputEmail.touched">
         <p class="error" *ngIf="inputEmail.errors?.['required']">
           Email is required!
@@ -28,6 +45,17 @@
           Email is invalid!
         </p>
       </ng-container>
+
+      <label for="bio">Bio:</label>
+      <textarea
+        name="bio"
+        id="bio"
+        ngModel
+        #inputDescription="ngModel"
+        maxlength="50"
+      ></textarea>
+
+
 
       <label for="pass">Password:</label>
       <input
@@ -74,7 +102,7 @@
       <p class="field">
         <span
           >If you already have profile click
-          <a routerLink="/login">here</a></span
+          <a routerLink="/user/login">here</a></span
         >
       </p>
     </div>

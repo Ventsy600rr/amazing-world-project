@@ -5,7 +5,7 @@ import { DataService } from '../data.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../user/user.service';
 import { Place } from 'src/app/types/place.type';
-import { User } from 'src/app/types/user.type';
+import { UserCredentials, UserData } from 'src/app/types/user.type';
 import { NgToastService } from 'ng-angular-popup';
 
 @Component({
@@ -21,15 +21,18 @@ export class AddPlaceComponent {
     private popupService: NgToastService
   ) {}
   urlValidator = appUrlValidator;
+
   addLocation(form: NgForm): void {
     if (form.invalid) {
       return;
     }
 
     const { title, name, location, imageUrl, description } = form.value;
-    const creator: User = {
-      email: this.userService.user?.email,
-      uid: this.userService.user?.uid,
+    const creator: UserData = {
+      email: this.userService.user!.email,
+      username: this.userService.user!.username,
+      uid: this.userService.user!.uid,
+      bio: this.userService.user!.bio,
     };
 
     const newPlace: Place = {
@@ -47,7 +50,7 @@ export class AddPlaceComponent {
     this.serviceData
       .addPlace(newPlace)
       .then(() => {
-        this.router.navigate(['catalog']);
+        this.router.navigate(['/place/catalog']);
         console.log('Succses!');
       })
       .catch((err) => {

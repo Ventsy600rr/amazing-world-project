@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/types/user.type';
+import { UserCredentials, UserData } from 'src/app/types/user.type';
 import { NgToastService } from 'ng-angular-popup';
 
 @Component({
@@ -21,14 +21,27 @@ export class LoginComponent {
     if (form.invalid) {
       return;
     }
+
     const { email, password } = form.value;
 
     this.userService
       .login(email, password)
       .then((userData) => {
-        const user = userData.user as User;
-        this.userService.setUser(user);
-        this.router.navigate(['catalog']);
+        const currentUserId = userData.user.uid;
+        return this.userService
+          .getUser(currentUserId)
+          .then((user) => {
+            const userObject = user.data();
+            const currentUser = userObject!['user'];
+            this.userService.setUser(currentUser);
+          })
+          .catch(() => {
+            this.userService.setUser(undefined);
+            this.userService.logout();
+          });
+      })
+      .then(() => {
+        this.router.navigate(['/place/catalog']);
       })
       .catch((err) => {
         this.popupService.error({

@@ -1,4 +1,4 @@
-import { User } from './user.type';
+import { UserCredentials, UserData } from './user.type';
 
 export interface Place {
   title: string;
@@ -10,5 +10,5 @@ export interface Place {
   likes: string[];
   visited: string[];
   favorites: string[];
-  creator: User;
+  creator: UserData;
 }

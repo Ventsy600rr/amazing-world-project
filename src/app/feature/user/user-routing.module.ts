@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthenticationGuard } from 'src/app/shared/guards/authentication.guard';
+import { CreatorComponent } from './creator/creator.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
      canActivate: [AuthenticationGuard],
+  },
+  {
+    path: ':creatorId/creator',
+    component: CreatorComponent,
   },
 ];
 
