@@ -8,17 +8,16 @@
         type="email"
         id="email"
         name="email"
-        placeholder="Sokka@gmail.com"
+        [appEmail]="appEmail"
         ngModel
         #inputEmail="ngModel"
         required
-        email
       />
       <ng-container *ngIf="inputEmail.touched">
         <p class="error" *ngIf="inputEmail.errors?.['required']">
           Email is required!
         </p>
-        <p class="error" *ngIf="inputEmail.errors?.['email']">
+        <p class="error" *ngIf="inputEmail.errors?.['appEmailValidator']">
           Email is invalid!
         </p>
       </ng-container>

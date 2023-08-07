@@ -4,6 +4,7 @@ import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { UserCredentials, UserData } from 'src/app/types/user.type';
 import { NgToastService } from 'ng-angular-popup';
+import { appEmailValidator } from 'src/app/shared/validators/email-validator/app-email-validator';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,8 @@ import { NgToastService } from 'ng-angular-popup';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  appEmail = appEmailValidator;
+  
   constructor(
     private userService: UserService,
     private router: Router,

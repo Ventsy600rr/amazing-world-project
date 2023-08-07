@@ -5,7 +5,7 @@ import { DataService } from '../data.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../user/user.service';
 import { Place } from 'src/app/types/place.type';
-import { UserCredentials, UserData } from 'src/app/types/user.type';
+import { UserData } from 'src/app/types/user.type';
 import { NgToastService } from 'ng-angular-popup';
 
 @Component({

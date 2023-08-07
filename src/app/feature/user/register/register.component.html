@@ -13,12 +13,20 @@
         type="email"
         id="email"
         name="email"
-        placeholder="maria@email.com"
+        [appEmail]="appEmail"
         ngModel
         #inputEmail="ngModel"
-        email
         required
       />
+
+      <ng-container *ngIf="inputEmail.touched">
+        <p class="error" *ngIf="inputEmail.errors?.['required']">
+          Email is required!
+        </p>
+        <p class="error" *ngIf="inputEmail.errors?.['appEmailValidator']">
+          Email is invalid!
+        </p>
+      </ng-container>
 
       <label for="username">Username:</label>
       <input
@@ -37,15 +45,6 @@
         </p>
       </ng-container>
 
-      <ng-container *ngIf="inputEmail.touched">
-        <p class="error" *ngIf="inputEmail.errors?.['required']">
-          Email is required!
-        </p>
-        <p class="error" *ngIf="inputEmail.errors?.['email']">
-          Email is invalid!
-        </p>
-      </ng-container>
-
       <label for="bio">Bio:</label>
       <textarea
         name="bio"
@@ -54,8 +53,6 @@
         #inputDescription="ngModel"
         maxlength="50"
       ></textarea>
-
-
 
       <label for="pass">Password:</label>
       <input
@@ -86,11 +83,11 @@
         #inputConfPass="ngModel"
       />
 
-      <!-- <ng-container *ngIf="inputConfPass.touched">
-        <p class="error" *ngIf="inputPassword !== inputConfPass">
+      <ng-container *ngIf="inputConfPass.touched">
+        <p class="error" *ngIf="inputPassword.value !== inputConfPass.value">
           Password and confirm password does not match!
         </p>
-      </ng-container> -->
+      </ng-container>
 
       <input
         class="btn submit"

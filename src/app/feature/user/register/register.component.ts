@@ -4,6 +4,7 @@ import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { UserData } from 'src/app/types/user.type';
 import { NgToastService } from 'ng-angular-popup';
+import { appEmailValidator } from 'src/app/shared/validators/email-validator/app-email-validator';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +17,9 @@ export class RegisterComponent {
     private router: Router,
     private popupService: NgToastService
   ) {}
+
+  appEmail = appEmailValidator;
+
   onRegister(form: NgForm): void {
     if (form.invalid) {
       return;
@@ -30,7 +34,7 @@ export class RegisterComponent {
           email: userData.user.email!,
           uid: userData.user.uid,
           username,
-          bio
+          bio,
         };
         return this.userService.addUser(user);
       })

@@ -6,31 +6,33 @@ import {
   Validator,
   ValidatorFn,
 } from '@angular/forms';
-import { appUrlValidator } from './app-url-validator';
+import { appEmailValidator } from './app-email-validator';
 
 @Directive({
-  selector: '[appUrlValidator]',
+  selector: '[appEmail]',
   providers: [
     {
       provide: NG_VALIDATORS,
-      useExisting: UrlValidatorDirective,
+      useExisting: EmailValidatorDirective,
       multi: true,
     },
   ],
 })
-export class UrlValidatorDirective implements Validator, OnChanges {
-  
-  @Input() appUrlValidator: ValidatorFn = () => null;
+export class EmailValidatorDirective implements Validator, OnChanges {
+
+  @Input() appEmail: ValidatorFn = () => null;
   validator: ValidatorFn = () => null;
+
+  constructor() {}
+
   validate(control: AbstractControl<any, any>): ValidationErrors | null {
     return this.validator(control);
   }
-  constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    const urlChange = changes['appUrlValidator'];
-    if (urlChange) {
-      this.validator = appUrlValidator(urlChange.currentValue);
+    const appEmailChange = changes['appEmail'];
+    if (appEmailChange) {
+      this.validator = appEmailValidator(appEmailChange.currentValue);
     }
   }
 }
